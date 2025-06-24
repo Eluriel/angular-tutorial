@@ -1,16 +1,21 @@
-import {Component} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { Component } from "@angular/core";
+import { RouterModule } from "@angular/router";
 
-import {Home} from './home/home';
+import { Home } from "./home/home";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   imports: [RouterModule],
   template: `
     <main>
       <a [routerLink]="['/']">
         <header class="brand-name">
-          <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true" />
+          <img
+            class="brand-logo"
+            src="/assets/logo.svg"
+            alt="logo"
+            aria-hidden="true"
+          />
         </header>
       </a>
       <section class="content">
@@ -18,8 +23,8 @@ import {Home} from './home/home';
       </section>
     </main>
   `,
-  styleUrls: ['./app.css'],
+  styleUrls: ["./app.css"],
 })
 export class App {
-  title = 'homes';
+  title = "homes";
 }

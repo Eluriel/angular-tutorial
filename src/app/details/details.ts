@@ -1,13 +1,13 @@
-import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {HousingService} from '../housing.service';
-import {HousingLocationInfo} from '../housinglocation';
+import { Component, inject } from "@angular/core";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { HousingService } from "../housing.service";
+import { HousingLocationInfo } from "../housinglocation";
 @Component({
-  selector: 'app-details',
+  selector: "app-details",
   imports: [ReactiveFormsModule],
   template: `
-  <article>
+    <article>
       <img
         class="listing-photo"
         [src]="housingLocation?.photo"
@@ -16,14 +16,18 @@ import {HousingLocationInfo} from '../housinglocation';
       />
       <section class="listing-description">
         <h2 class="listing-heading">{{ housingLocation?.name }}</h2>
-        <p class="listing-location">{{ housingLocation?.city }}, {{ housingLocation?.state }}</p>
+        <p class="listing-location">
+          {{ housingLocation?.city }}, {{ housingLocation?.state }}
+        </p>
       </section>
       <section class="listing-features">
         <h2 class="section-heading">About this housing location</h2>
         <ul>
           <li>Units available: {{ housingLocation?.availableUnits }}</li>
           <li>Does this location have wifi: {{ housingLocation?.wifi }}</li>
-          <li>Does this location have laundry: {{ housingLocation?.laundry }}</li>
+          <li>
+            Does this location have laundry: {{ housingLocation?.laundry }}
+          </li>
         </ul>
       </section>
       <section class="listing-apply">
@@ -40,7 +44,7 @@ import {HousingLocationInfo} from '../housinglocation';
       </section>
     </article>
   `,
-  styleUrl: './details.scss'
+  styleUrl: "./details.scss",
 })
 export class Details {
   route: ActivatedRoute = inject(ActivatedRoute);
@@ -48,24 +52,26 @@ export class Details {
   housingLocation: HousingLocationInfo | undefined;
 
   applyForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
+    firstName: new FormControl(""),
+    lastName: new FormControl(""),
+    email: new FormControl(""),
   });
 
   constructor() {
-    const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingService.getHousingLocationById(housingLocationId).subscribe((housingLocation) => {
-      this.housingLocation = housingLocation[0] ?? undefined;
-    });
+    const housingLocationId = Number(this.route.snapshot.params["id"]);
+    this.housingService
+      .getHousingLocationById(housingLocationId)
+      .subscribe((housingLocation) => {
+        this.housingLocation = housingLocation[0] ?? undefined;
+      });
   }
 
   submitApplication() {
     this.housingService.submitApplication(
-      this.applyForm.value.firstName ?? '',
-      this.applyForm.value.lastName ?? '',
-      this.applyForm.value.email ?? '',
-      this.housingLocation?.id ?? -1
+      this.applyForm.value.firstName ?? "",
+      this.applyForm.value.lastName ?? "",
+      this.applyForm.value.email ?? "",
+      this.housingLocation?.id ?? -1,
     );
   }
 }
