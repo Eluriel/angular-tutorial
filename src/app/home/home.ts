@@ -30,9 +30,12 @@ export class Home {
   housingService: HousingService = inject(HousingService);
 
   constructor() {
-    this.housingLocationList = this.housingService.getAllHousingLocations();
-    this.filteredLocationList = this.housingLocationList;
-  }
+    this.housingService.getAllHousingLocations().subscribe(
+      (response) => {
+        this.housingLocationList = response;
+        this.filteredLocationList = response;
+      })
+    }
 
   filterResults(text: string) {
     if (!text) {
